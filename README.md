@@ -1,0 +1,2 @@
+# Haven-of-stories-Web-toko-buku-perpustakaan-digital
+Haven Of Stories Adalah sebuah platform atau sistem informasi berbasis digital yang dirancang untuk mencari atau membeli buku, membantu pengelolaan data dan aktivitas operasional di dalam perpustakaan Sistem ini mengubah proses manual menjadi otomatis, sehingga memudahkan pustakawan dalam administrasi dan memudahkan anggota dalam mencari referensi.
