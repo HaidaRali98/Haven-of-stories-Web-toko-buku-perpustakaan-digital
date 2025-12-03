@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Haven of Stories</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="main-container">
+<nav class="floating-navbar">
+<div class="nav-left"><a href="index.html" class="icon-btn"><i class="fas fa-arrow-left"></i></a></div>
+<div class="nav-center"><span style="font-weight: 600;">Checkout</span></div>
+<div class="nav-right"><button class="icon-btn"><i class="far fa-user"></i></button></div>
+</nav>
+
+<div class="cart-card-container">
+<div class="cart-left">
+<h2>Keranjang Belanja</h2>
+<div class="cart-header">
+<span>Produk</span>
+<span>Harga Satuan</span>
+<span>Jumlah</span>
+<span>Total</span>
+</div>
+<div id="cart-items-container"></div>
+<div class="left-summary">
+<div class="row">
+<span>Subtotal Produk:</span>
+<span id="subtotal-display">Rp 0</span>
+</div>
+<div class="row">
+<span>Biaya Pengiriman:</span>
+<span>Rp 10.000</span>
+</div>
+</div>
+<div class="total-box-left">
+<span>Total Pembayaran</span>
+<span class="big-price" id="total-display">Rp 0</span>
+</div>
+</div>
+
+<div class="cart-right">
+<h3>Info Pembayaran</h3>
+<form>
+<div class="input-group">
+<label>Alamat Pengiriman</label>
+<input type="text" placeholder="Masukkan Alamat Lengkap">
+</div>
+<div class="input-group">
+<label>Opsi Pengiriman</label>
+<div class="logos-row">
+<div class="logo-box shipping-opt" onclick="pilihOpsi(this, 'shipping-opt')">JNE</div>
+<div class="logo-box shipping-opt" onclick="pilihOpsi(this, 'shipping-opt')">J&T</div>
+<div class="logo-box shipping-opt" onclick="pilihOpsi(this, 'shipping-opt')">SiCepat</div>
+</div>
+</div>
+<div class="input-group">
+<label>Metode Pembayaran</label>
+<div class="payment-grid">
+<div class="logo-box payment-opt" onclick="pilihOpsi(this, 'payment-opt')">BCA</div>
+<div class="logo-box payment-opt" onclick="pilihOpsi(this, 'payment-opt')">Mandiri</div>
+<div class="logo-box payment-opt" onclick="pilihOpsi(this, 'payment-opt')">BNI</div>
+<div class="logo-box payment-opt" onclick="pilihOpsi(this, 'payment-opt')">QRIS</div>
+<div class="logo-box payment-opt" onclick="pilihOpsi(this, 'payment-opt')">GoPay</div>
+<div class="logo-box payment-opt" onclick="pilihOpsi(this, 'payment-opt')">Dana</div>
+</div>
+</div>
+<div class="input-group">
+<label>Pesan (Opsional)</label>
+<textarea placeholder="Catatan tambahan..."></textarea>
+</div>
+<button type="button" class="btn-checkout" onclick="prosesPesanan()">Buat Pesanan</button>
+</form>
+</div>
+</div>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+
+function renderCart() {
+const container = document.getElementById('cart-items-container');
+container.innerHTML = ''; 
+let subtotal = 0;
+
+if (cart.length === 0) {
+container.innerHTML = "<p style='text-align:center; padding:40px; color:#888;'>Keranjang Kosong</p>";
+document.getElementById('subtotal-display').innerText = "Rp 0";
+document.getElementById('total-display').innerText = "Rp 10.000"; 
+return;
+}
+
+cart.forEach((item, index) => {
+let itemTotal = item.harga * item.qty;
+subtotal += itemTotal;
+let hargaRp = new Intl.NumberFormat('id-ID').format(item.harga);
+let totalRp = new Intl.NumberFormat('id-ID').format(itemTotal);
+
+let htmlRow = `
+<div class="cart-row">
+<div class="product-info">
+<button class="remove-x" onclick="hapusItem(${index})"><i class="fas fa-times"></i></button>
+<img src="${item.gambar}">
+<div><h4>${item.judul}</h4></div>
+</div>
+<div class="price-info">Rp ${hargaRp}</div>
+<div class="qty-control">
+<button onclick="updateQty(${index}, -1)">-</button>
+<span class="qty-val">${item.qty}</span>
+<button onclick="updateQty(${index}, 1)">+</button>
+</div>
+<div class="total-info" style="color:#2c2c54;">Rp ${totalRp}</div>
+</div>
+`;
+container.innerHTML += htmlRow;
+});
+
+document.getElementById('subtotal-display').innerText = "Rp " + new Intl.NumberFormat('id-ID').format(subtotal);
+document.getElementById('total-display').innerText = "Rp " + new Intl.NumberFormat('id-ID').format(subtotal + 10000);
+}
+
+function updateQty(index, change) {
+cart[index].qty += change;
+if (cart[index].qty < 1) cart[index].qty = 1;
+saveAndRender();
+}
+
+function hapusItem(index) {
+cart.splice(index, 1);
+saveAndRender();
+}
+
+function saveAndRender() {
+localStorage.setItem('myCart', JSON.stringify(cart));
+renderCart();
+}
+
+function pilihOpsi(element, className) {
+document.querySelectorAll('.' + className).forEach(el => el.classList.remove('active'));
+element.classList.add('active');
+}
+
+function prosesPesanan() {
+if (cart.length === 0) {
+alert("❌ Keranjang kosong! Pilih buku dulu.");
+return;
+}
+const bayar = document.querySelector('.payment-opt.active');
+if (!bayar) {
+alert("⚠️ Harap pilih metode pembayaran!");
+return;
+}
+alert("✅ Pesanan Berhasil! Terima kasih.");
+cart = [];
+saveAndRender();
+window.location.href = 'index.html';
+}
+
+renderCart();
+</script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haven of Stories</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="main-container">
+<nav class="floating-navbar">
+<div class="nav-left">
+<button class="icon-btn" onclick="toggleDropdown()"><i class="fas fa-bars"></i></button>
+<div id="hamburger-dropdown" class="dropdown-menu">
+<a href="cart.html" class="dropdown-item">
+<span><i class="fas fa-shopping-cart"></i> Keranjang Saya</span>
+<span id="dropdown-badge" class="dropdown-badge">0</span>
+</a>
+</div>
+</div>
+
+<div class="nav-center">
+<a href="#" onclick="pilihMenu(event, this, 1)" class="active">Home</a>
+<a href="#" onclick="pilihMenu(event, this, '#section-detail')">Detail</a>
+<a href="#" onclick="pilihMenu(event, this, '#section-trending')">Trending</a>
+<a href="#" onclick="pilihMenu(event, this, '#section-collection')">Collection</a>
+</div>
+
+<div class="nav-right">
+<button class="icon-btn" onclick="toggleUserDropdown()">
+<i class="far fa-user" id="user-icon"></i>
+<img src="assets/ProfilePic.jpg" id="user-avatar-small" style="display:none; width:100%; height:100%; border-radius:50%; object-fit:cover;">
+</button>
+<div id="user-dropdown" class="user-dropdown-menu">
+<div id="login-form-view">
+<h4 class="login-title">Sign In</h4>
+<input type="text" id="input-username" class="login-input" placeholder="Username">
+<input type="password" id="input-password" class="login-input" placeholder="Password">
+<button class="btn-login" onclick="prosesLogin()">Log In</button>
+</div>
+<div id="profile-view" class="profile-card" style="display: none;">
+<img src="assets/ProfilePic.jpg" class="profile-avatar">
+<div class="greeting-text" id="display-name">Hi, User!</div>
+<button class="sign-out-btn" onclick="logout()">Sign Out</button>
+</div>
+</div>
+</div>
+</nav>
+
+<main class="content-area">
+<header class="hero-header">
+<div class="logo-area">
+<img src="assets/logo.jpg" alt="Logo" class="main-logo">
+<h2>Haven of Stories</h2>
+</div>
+</header>
+
+<section class="hero-slider">
+<div class="slide active">
+<div class="slide-text">
+<span class="editor-pick">THE EDITORS' CHOICE</span>
+<h1>Featured Books of the Month</h1>
+<h2 class="book-highlight">Seporsi Mie Ayam Sebelum Mati</h2>
+<button class="btn-black" onclick="scrollToElement('#section-trending')">See More</button>
+</div>
+<div class="slide-visual">
+<img src="assets/Buku4.avif" class="bg-book book-left">
+<img src="assets/Buku3.avif" class="bg-book book-right">
+<img src="assets/Buku1.jpg" class="main-book">
+</div>
+</div>
+<div class="slide">
+<div class="slide-text">
+<span class="editor-pick">ROMANCE FAVORITE</span>
+<h1>Featured Books of the Month</h1>
+<h2 class="book-highlight">Dilan 1991</h2>
+<button class="btn-black" onclick="scrollToElement('#section-trending')">See More</button>
+</div>
+<div class="slide-visual">
+<img src="assets/Buku1.jpg" class="bg-book book-left">
+<img src="assets/Buku5.jpg" class="bg-book book-right">
+<img src="assets/Buku4.avif" class="main-book">
+</div>
+</div>
+<div class="slide">
+<div class="slide-text">
+<span class="editor-pick">HISTORICAL FICTION</span>
+<h1>Featured Books of the Month</h1>
+<h2 class="book-highlight">Laut Bercerita</h2>
+<button class="btn-black" onclick="scrollToElement('#section-trending')">See More</button>
+</div>
+<div class="slide-visual">
+<img src="assets/Buku2.avif" class="bg-book book-left">
+<img src="assets/Buku4.avif" class="bg-book book-right">
+<img src="assets/Buku3.avif" class="main-book">
+</div>
+</div>
+<div class="slider-dots">
+<span class="dot active" onclick="manualSlide(0)"></span>
+<span class="dot" onclick="manualSlide(1)"></span>
+<span class="dot" onclick="manualSlide(2)"></span>
+</div>
+</section>
+
+<div class="section-divider" id="section-detail">
+<h3>Book Details & Preview</h3>
+</div>
+
+<section class="featured-card">
+<div class="book-details">
+<span class="badge" id="badge-text">Best Seller</span>
+<h1 id="judul-utama">Seporsi Mie Ayam Sebelum Mati</h1>
+<p class="author" id="penulis-utama">Karya: Brian Khrisna</p>
+<p class="desc" id="deskripsi-utama">
+Kisah tentang perjalanan rasa dan asa seorang manusia yang sedang berada di titik terendah. Bagaimana semangkuk mie ayam sederhana bisa menjadi saksi bisu perjuangan hidup, kenangan tentang rumah, cinta yang kandas, dan harapan yang nyaris padam. Buku ini mengajarkan kita untuk menghargai hal-hal kecil yang seringkali menyelamatkan hidup kita.
+</p>
+<div class="action-buttons">
+<button class="btn-pill" id="tombol-beli" onclick="transaksiLangsung()">Beli Sekarang <i class="fas fa-arrow-right"></i></button>
+<button class="btn-pill outline" onclick="tambahKeKeranjang()">+ Keranjang <i class="fas fa-cart-plus"></i></button>
+</div>
+</div>
+<div class="book-image"><img src="assets/Buku1.jpg" id="gambar-utama"></div>
+</section>
+
+<section class="book-list" id="section-trending">
+<h3>Trending Now</h3>
+<div class="grid-container">
+<div class="book-item" onclick="pilihBuku(1)"><img src="assets/Buku1.jpg"><h4>Mie Ayam</h4><p>Brian Khrisna</p></div>
+<div class="book-item" onclick="pilihBuku(2)"><img src="assets/Buku2.avif"><h4>0 MDPL</h4><p>Nurwina Sari</p></div>
+<div class="book-item" onclick="pilihBuku(3)"><img src="assets/Buku4.avif"><h4>Dilan 1991</h4><p>Pidi Baiq</p></div>
+<div class="book-item" onclick="pilihBuku(4)"><img src="assets/Buku5.jpg"><h4>Goresan Berandal</h4><p>Mohan Hazian</p></div>
+<div class="book-item" onclick="pilihBuku(5)"><img src="assets/Buku3.avif"><h4>Laut Bercerita</h4><p>Leila S. Chudori</p></div>
+</div>
+</section>
+
+<section class="book-list" id="section-collection" style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px;">
+<div class="collection-header">
+<h3>Full Collection</h3>
+<div class="search-container">
+<i class="fas fa-search"></i>
+<input type="text" id="searchInput" onkeyup="cariBuku()" placeholder="Cari judul atau penulis...">
+</div>
+</div>
+<div class="grid-container" id="all-books-grid"></div>
+</section>
+
+</main>
+</div>
+
+<script>
+const databaseBuku = {
+1: { judul: "Seporsi Mie Ayam Sebelum Mati", penulis: "Brian Khrisna", harga: 89000, gambar: "assets/Buku1.jpg", desc: "Kisah tentang perjalanan rasa dan asa seorang manusia yang sedang berada di titik terendah. Bagaimana semangkuk mie ayam sederhana bisa menjadi saksi bisu perjuangan hidup, kenangan tentang rumah, cinta yang kandas, dan harapan yang nyaris padam. Buku ini mengajarkan kita untuk menghargai hal-hal kecil yang seringkali menyelamatkan hidup kita.", badge: "Best Seller" },
+2: { judul: "0 MDPL", penulis: "Nurwina Sari", harga: 95000, gambar: "assets/Buku2.avif", desc: "Sebuah catatan perjalanan epik menuju atap negeri. Buku ini bukan hanya menceritakan tentang teknis menaklukkan ketinggian gunung, tetapi tentang menaklukkan ego diri sendiri. Tentang persahabatan yang diuji di jalur pendakian, tentang menemukan arti pulang yang sesungguhnya, dan bahwa puncak hanyalah bonus.", badge: "Trending" },
+3: { judul: "Dilan 1991", penulis: "Pidi Baiq", harga: 79000, gambar: "assets/Buku4.avif", desc: "Lanjutan kisah cinta ikonik antara Dilan dan Milea. Jika 1990 adalah masa pendekatan yang manis, maka 1991 adalah masa pacaran yang penuh dinamika. Dilan yang menjabat sebagai panglima tempur geng motor diuji loyalitasnya, membuat Milea khawatir. Tawa, air mata, dan ancaman perpisahan mewarnai langit Bandung.", badge: "Romance" },
+4: { judul: "Goresan Seorang Berandal", penulis: "Mohan Hazian", harga: 85000, gambar: "assets/Buku5.jpg", desc: "Kumpulan tulisan puitis, nyeleneh, namun sangat jujur dari Mohan Hazian. Berisi curahan hati tentang kerasnya kehidupan jalanan, kritik sosial yang tajam, dan pandangan hidup seorang 'berandal' yang menolak untuk tunduk pada aturan baku masyarakat. Sebuah karya yang berani dan apa adanya.", badge: "Memoar" },
+5: { judul: "Laut Bercerita", penulis: "Leila S. Chudori", harga: 110000, gambar: "assets/Buku3.avif", desc: "Novel sejarah yang mengangkat tragedi kelam tahun 1998. Mengisahkan tentang persahabatan para aktivis mahasiswa yang berani bersuara, cinta yang tak sempat terucap, dan kepedihan keluarga yang terus menanti kepulangan mereka yang hilang ditelan kesunyian. Sebuah pengingat bahwa sejarah tidak boleh dilupakan.", badge: "Historical" },
+6: { judul: "Slow Living", penulis: "Sabrina Ara", harga: 75000, gambar: "assets/Buku6.jpg", desc: "Panduan untuk memperlambat ritme hidup di tengah dunia yang serba cepat. Menemukan kebahagiaan dalam kesederhanaan dan ketenangan.", badge: "Self Help" },
+7: { judul: "Kios Pasar Sore", penulis: "Reda Gaudiamo", harga: 68000, gambar: "assets/Buku7.jpg", desc: "Kumpulan cerita pendek yang menghangatkan hati tentang kehidupan sehari-hari di pasar tradisional, penuh dengan interaksi manusiawi yang tulus.", badge: "Fiksi" },
+8: { judul: "Aku Titip Dia, Ya!", penulis: "Rafi Ibadi", harga: 82000, gambar: "assets/Buku8.jpg", desc: "Sebuah novel tentang keikhlasan melepaskan seseorang yang kita cintai untuk bahagia bersama orang lain. Penuh emosi dan pelajaran hidup.", badge: "Romance" },
+9: { judul: "Untuk Satu Nama", penulis: "Rafi Ibadi", harga: 88000, gambar: "assets/Buku9.jpg", desc: "Kumpulan surat-surat yang tak pernah terkirim untuk satu nama yang sulit dihapus dari ingatan, meski waktu telah berlalu lama.", badge: "Romance" },
+10: { judul: "Nanti Juga Sembuh Sendiri", penulis: "HeloBagas", harga: 90000, gambar: "assets/Buku10.jpg", desc: "Buku self-healing yang menemani pembaca melewati masa-masa patah hati dan kegagalan. Bahwa waktu dan penerimaan diri adalah obat terbaik.", badge: "Self Help" },
+11: { judul: "Jika Lukamu Sedalam Laut", penulis: "patahan.ranting", harga: 92000, gambar: "assets/Buku11.jpg", desc: "Maka ikhlasmu harus seluas langit. Sebuah buku motivasi islami tentang bagaimana berdamai dengan takdir dan luka masa lalu.", badge: "Motivasi" },
+12: { judul: "Tentang Luka", penulis: "kopioppi", harga: 70000, gambar: "assets/Buku12.jpg", desc: "Tentang luka yang kusimpan sendiri. Antologi puisi yang menyuarakan perasaan-perasaan terpendam yang tak mampu diucapkan oleh lisan.", badge: "Puisi" },
+13: { judul: "Yang Katanya Cemara", penulis: "Vania Winola", harga: 95000, gambar: "assets/Buku13.jpg", desc: "Dinamika keluarga yang terlihat sempurna 'Cemara' dari luar, namun menyimpan konflik dan perjuangan masing-masing anggota keluarga di dalamnya.", badge: "Family" },
+14: { judul: "Hai Nak!", penulis: "Reda Gaudiamo", harga: 65000, gambar: "assets/Buku14.jpg", desc: "Pesan-pesan menyentuh dari seorang ibu untuk anaknya tentang kehidupan, cinta, dan menjadi manusia yang baik.", badge: "Parenting" },
+15: { judul: "Kamu Tak Harus Sempurna", penulis: "Anastasia Satriyo", harga: 99000, gambar: "assets/Buku15.jpg", desc: "Buku psikologi yang mengajak kita untuk merangkul ketidaksempurnaan diri dan berhenti menuntut diri sendiri terlalu keras.", badge: "Psychology" }
+};
+
+function renderCollection() {
+const grid = document.getElementById('all-books-grid');
+grid.innerHTML = '';
+for (const [id, buku] of Object.entries(databaseBuku)) {
+let html = `
+<div class="book-item searchable-item" onclick="pilihBuku(${id})">
+<img src="${buku.gambar}" alt="${buku.judul}">
+<h4 class="book-title">${buku.judul}</h4>
+<p>${buku.penulis}</p>
+</div>
+`;
+grid.innerHTML += html;
+}
+}
+renderCollection();
+
+function cariBuku() {
+let input = document.getElementById('searchInput').value.toLowerCase();
+let items = document.getElementsByClassName('searchable-item');
+for (let i = 0; i < items.length; i++) {
+let judul = items[i].querySelector('.book-title').innerText.toLowerCase();
+let penulis = items[i].querySelector('p').innerText.toLowerCase();
+if (judul.includes(input) || penulis.includes(input)) {
+items[i].style.display = "flex";
+} else {
+items[i].style.display = "none";
+}
+}
+}
+
+function toggleDropdown() {
+const menu = document.getElementById('hamburger-dropdown');
+menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+function toggleUserDropdown() {
+document.getElementById('hamburger-dropdown').style.display = "none";
+const dropdown = document.getElementById('user-dropdown');
+if (dropdown.style.display === "block") {
+dropdown.style.display = "none";
+} else {
+dropdown.style.display = "block";
+dropdown.classList.add('show');
+}
+}
+
+let isLoggedIn = false;
+function prosesLogin() {
+const u = document.getElementById('input-username').value;
+if(u.trim() === "") { alert("Isi username!"); return; }
+isLoggedIn = true;
+document.getElementById('display-name').innerText = "Hi, " + u + "!";
+document.getElementById('login-form-view').style.display = "none";
+document.getElementById('profile-view').style.display = "flex";
+document.getElementById('user-icon').style.display = "none";
+document.getElementById('user-avatar-small').style.display = "block";
+document.getElementById('user-dropdown').style.display = "none";
+alert("✅ Welcome " + u);
+}
+
+function logout() {
+isLoggedIn = false;
+document.getElementById('login-form-view').style.display = "block";
+document.getElementById('profile-view').style.display = "none";
+document.getElementById('user-icon').style.display = "block";
+document.getElementById('user-avatar-small').style.display = "none";
+}
+
+function pilihMenu(event, element, target) {
+event.preventDefault();
+if (element.classList.contains('active') && typeof target !== 'number') return;
+document.querySelectorAll('.nav-center a').forEach(menu => menu.classList.remove('active'));
+if(element) element.classList.add('active');
+if (typeof target === 'number') {
+pilihBuku(target); 
+window.scrollTo({ top: 0, behavior: 'smooth' });
+} else if (typeof target === 'string') {
+scrollToElement(target);
+}
+}
+
+function scrollToElement(target) {
+const section = document.querySelector(target);
+if(section) {
+const y = section.getBoundingClientRect().top + window.scrollY - 100;
+window.scrollTo({ top: y, behavior: 'smooth' });
+}
+}
+
+let slideIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+function showSlide(n) {
+slides.forEach(s => s.classList.remove('active'));
+dots.forEach(d => d.classList.remove('active'));
+slideIndex = n;
+if (slideIndex >= slides.length) slideIndex = 0;
+if (slideIndex < 0) slideIndex = slides.length - 1;
+slides[slideIndex].classList.add('active');
+dots[slideIndex].classList.add('active');
+}
+function manualSlide(n) { showSlide(n); }
+setInterval(() => { showSlide(slideIndex + 1); }, 4000);
+
+let bukuSedangDilihat = databaseBuku[1]; 
+bukuSedangDilihat.id = 1;
+
+function pilihBuku(id) {
+const data = databaseBuku[id];
+bukuSedangDilihat = { ...data, id: id };
+const card = document.querySelector('.featured-card');
+card.style.opacity = '0.5';
+setTimeout(() => {
+document.getElementById('judul-utama').innerText = data.judul;
+document.getElementById('penulis-utama').innerText = "Karya: " + data.penulis;
+document.getElementById('deskripsi-utama').innerText = data.desc;
+document.getElementById('gambar-utama').src = data.gambar;
+document.getElementById('badge-text').innerText = data.badge;
+const hargaFormat = new Intl.NumberFormat('id-ID').format(data.harga);
+document.getElementById('tombol-beli').innerHTML = `Beli - Rp ${hargaFormat} <i class="fas fa-arrow-right"></i>`;
+card.style.opacity = '1';
+document.getElementById('section-detail').scrollIntoView({ behavior: 'smooth' });
+}, 200);
+}
+
+function getCart() { return JSON.parse(localStorage.getItem('myCart')) || []; }
+function saveCart(cart) { localStorage.setItem('myCart', JSON.stringify(cart)); updateBadge(); }
+function tambahKeKeranjang() {
+let cart = getCart();
+let existing = cart.find(item => item.id === bukuSedangDilihat.id);
+if (existing) { existing.qty += 1; } else { cart.push({ ...bukuSedangDilihat, qty: 1 }); }
+saveCart(cart); alert("✅ Masuk Keranjang!");
+}
+function transaksiLangsung() {
+if(confirm("Lanjut pembayaran?")) {
+saveCart([{ ...bukuSedangDilihat, qty: 1 }]); window.location.href = 'cart.html';
+}
+}
+function updateBadge() {
+let count = getCart().reduce((sum, item) => sum + item.qty, 0);
+let badge = document.getElementById('dropdown-badge');
+if(badge) badge.innerText = count;
+}
+updateBadge();
+
+window.onclick = function(event) {
+if (!event.target.closest('.nav-left')) {
+const ham = document.getElementById("hamburger-dropdown");
+if (ham && ham.style.display === "block") ham.style.display = "none";
+}
+if (!event.target.closest('.nav-right')) {
+const usr = document.getElementById("user-dropdown");
+if (usr && usr.style.display === "block") usr.style.display = "none";
+}
+}
+</script>
+</body>
+</html>
